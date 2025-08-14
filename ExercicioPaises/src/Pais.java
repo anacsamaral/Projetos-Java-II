@@ -1,9 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pais {
     //atributos
     private String codIso;
     private String nome;
     private int populacao;
     private double dimensao;
+    private List <Pais> vizinhos;
+
+    // método para adicionar vizinho
+    public boolean addVizinho(Pais pais) {
+        if(vizinhos.contains(pais)){
+            vizinhos.add(pais);
+            return true;
+        }
+        return false;
+    }
+    public boolean isVizinho(Pais pais) {
+        return vizinhos.contains(pais);
+    }
+    public List getVizinhos(){
+        return vizinhos;
+    }
 
     //A) construtor com parametro
     public Pais(String codIso, String nome, int populacao, double dimensao) {
@@ -11,6 +30,7 @@ public class Pais {
         this.nome = nome;
         setPopulacao(populacao);
         setDimensao(dimensao);
+        vizinhos = new ArrayList<>();
     }
 
     // A) construtor sem parametro (forma 1)
@@ -66,5 +86,10 @@ public class Pais {
         if(dimensao > 0)
             return populacao/dimensao;
         return 0;
+    }
+
+    @Override
+    public String toString(){
+        return nome;
     }
 }

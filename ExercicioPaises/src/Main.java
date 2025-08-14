@@ -29,7 +29,7 @@ public class Main {
 
         //paisesList.clear(); // zera a lista
         //System.out.println(paisesList.contains(br)); // se contem o objeto na lista
-        System.out.println(paisesList.indexOf(br)); // posição do objeto na lista
+        //System.out.println(paisesList.indexOf(br)); // posição do objeto na lista
         //paisesList.remove(br); // remove o objeto e remaneja a lista
         paisesList.sort(new Comparator<Pais>() {
 
@@ -59,5 +59,12 @@ public class Main {
             System.out.println("É o mesmo país.");
         else
             System.out.println("Países diferentes");*/
+
+        // TESTANDO OS VIZINHOS
+        br.addVizinho(arg);
+        br.addVizinho(paisesList.get(0));
+        br.addVizinho(paisesList.get(2));
+
+        System.out.println(br.getVizinhos());
     }
 }
