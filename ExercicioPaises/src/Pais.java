@@ -11,7 +11,7 @@ public class Pais {
 
     // método para adicionar vizinho
     public boolean addVizinho(Pais pais) {
-        if(vizinhos.contains(pais)){
+        if(!vizinhos.contains(pais)){
             vizinhos.add(pais);
             return true;
         }
