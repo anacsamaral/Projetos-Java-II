@@ -35,7 +35,8 @@ public class Main {
 
             @Override
             public int compare(Pais o1, Pais o2) {
-                return o1.getPopulacao()-o2.getPopulacao();
+                return o1.getPopulacao()-o2.getPopulacao(); //populacao
+                //return o1.getNome().compareTo(o2.getNome()); //nome
             }
         }); // ordena a lista
 
