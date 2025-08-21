@@ -6,9 +6,11 @@ public class Vinho {
     private String marca;
     private int volume;
     private LocalDate data;
-    public double valor;
+    private double valor;
 
     // quando temos muitos atributos, podemos ter 3 construtores
+
+    // Construtores
     public Vinho(String tipo, String marca, int volume, LocalDate data, double valor){
         this.tipo = tipo;
         this.marca = marca;
@@ -25,6 +27,7 @@ public class Vinho {
         this(tipo,marca,volume,LocalDate.now(),0);
     }
 
+    // Getters e Setters
     public String getTipo() {
         return tipo;
     }
@@ -68,6 +71,17 @@ public class Vinho {
 
     public long getDataDias(){
         return data.until(LocalDate.now(), ChronoUnit.DAYS); // retorna o tempo em dias da data do vinho até a data atual
+    }
+
+    @Override
+    public String toString() {
+        return "Vinho{" +
+                "tipo='" + tipo + '\'' +
+                ", marca='" + marca + '\'' +
+                ", volume=" + volume + "ml" +
+                ", data=" + data +
+                ", valor=R$" + valor +
+                '}';
     }
 }
 
