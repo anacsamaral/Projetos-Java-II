@@ -17,13 +17,14 @@ public class Vinho {
         setValor(valor);
     }
 
-    public Vinho(){
+    // Outros tipos de Construtores
+    /*public Vinho(){
         this("tinto", "", 750, LocalDate.now(), 0);
     }
 
     public Vinho(String tipo, String marca, int volume){
         this(tipo, marca, volume, LocalDate.now(), 0);
-    }
+    }*/
 
     // Getters e Setters
     public String getTipo() {
@@ -68,7 +69,7 @@ public class Vinho {
     }
 
     public long getDataDias(){
-        return data.until(LocalDate.now(), ChronoUnit.DAYS);
+        return(Math.abs(data.until(LocalDate.now(), ChronoUnit.DAYS)));
     }
 
     @Override

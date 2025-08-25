@@ -12,7 +12,7 @@ public class Adega {
     }*/
 
     // Inner Class
-    public class Posicao {
+    public static class Posicao {
         private int linha, coluna;
 
         public Posicao(int linha, int coluna) {
@@ -62,6 +62,8 @@ public class Adega {
             for (int j = 0; j < vinhos[i].length; j++) {
                 if(vinhos[i][j] == null) {
                     posicoesLivres.add(new Posicao(i,j));
+                    quantidadeGarrafas++;
+                    valorTotal += vinho.getValor();
                     isCheia = false;
                 }
             }
@@ -79,7 +81,7 @@ public class Adega {
         for(int i = 0; i < vinhos.length; i++){
             for(int j = 0; j < vinhos[i].length; j++){
                 if(vinhos[i][j] != null){
-                    if(vinhos[i][j].getTipo().equals(tipo.toLowerCase())){ // se chamar um objeto nulo, da erro
+                    if(vinhos[i][j].getTipo().equalsIgnoreCase(tipo)){ // se chamar um objeto nulo, da erro
                         cont++;
                     }
                 }
