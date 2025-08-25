@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,6 @@ public class Adega {
     // a) Incluir uma garrafa na adega, dada a posição;
     public boolean add(Vinho vinho, int fila, int col){
         if(fila >= 0  && fila < vinhos.length && col >= 0 && col < vinhos[fila].length){
-
             // uma matriz de objeto fica instanciada com null
             if(vinhos[fila][col] == null){
                 vinhos[fila][col] = vinho;
@@ -89,13 +89,44 @@ public class Adega {
     }
 
     // f) Obter o vinho mais antigo da adega (menor data de fabricação);
-    //public
+    public Vinho getVinhoMaisAntigo(){
+        if(quantidadeGarrafas == 0){
+            return null;
+        }
 
-    // para remover um vinho da posicao, jogar null no valor da posicao dele
-    // guardar as posicoes livres e sortear uma delas
+        Vinho maisAntigo = null;
+        LocalDate dataMaisAntiga = LocalDate.MAX;
+
+        for (int i = 0; i < vinhos.length; i++) {
+            for (int j = 0; j < vinhos[i].length; j++) {
+                if(vinhos[i][j] != null){
+                    LocalDate dataAtual = vinhos[i][j].getData();
+                    if(dataAtual.isBefore(dataMaisAntiga)){
+                        dataMaisAntiga = dataAtual;
+                        maisAntigo = vinhos[i][j];
+                    }
+                }
+            }
+        }
+        return maisAntigo;
+    }
+
+    // g) Retirar um determinado vinho, de acordo com sua localização.
+    public Vinho retirarVinho(int fila, int col){
+        if(fila >= 0 && fila < vinhos.length && col >= 0 && col < vinhos[fila].length){
+            if(vinhos[fila][col] != null) {
+                Vinho vinhoRemovido = vinhos[fila][col];
+                vinhos[fila][col] = null;
+                quantidadeGarrafas--;
+                valorTotal -= vinhoRemovido.getValor();
+                return vinhoRemovido;
+            }
+        }
+        return null;
+    }
 
     // d) Obter a quantidade de garrafas cadastradas na adega;
-    public int getQuantidadeTotal() {
+    public int getQuantidadeGarrafas() {
         return quantidadeGarrafas;
     }
 
@@ -106,12 +137,14 @@ public class Adega {
 
     @Override
     public String toString(){
-        String str = "";
+        String str = "Adega - " + quantidadeGarrafas + "/200 garrafas\n";
+        str += "Valor total: R$" + String.format("%.2f", valorTotal) + "\n";
+
         for(int i = 0; i < vinhos.length; i++){
             for(int j = 0; j < vinhos[i].length; j++){
-                str += (vinhos[i][j] == null)?".":"X";
+                str += (vinhos[i][j] == null) ? "." : "X";
             }
-            str+="\n";
+            str += "\n";
         }
         return str;
     }
