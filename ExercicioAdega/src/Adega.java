@@ -89,7 +89,7 @@ public class Adega {
     }
 
     // f) Obter o vinho mais antigo da adega (menor data de fabricação);
-    public 
+    //public
 
     // para remover um vinho da posicao, jogar null no valor da posicao dele
     // guardar as posicoes livres e sortear uma delas
