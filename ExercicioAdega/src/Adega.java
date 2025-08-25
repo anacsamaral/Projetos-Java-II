@@ -62,16 +62,16 @@ public class Adega {
             for (int j = 0; j < vinhos[i].length; j++) {
                 if(vinhos[i][j] == null) {
                     posicoesLivres.add(new Posicao(i,j));
-                    quantidadeGarrafas++;
-                    valorTotal += vinho.getValor();
                     isCheia = false;
                 }
             }
         }
         // o mét. de acesso "get" retorna um valor inteiro, então precisa convertê-lo para int
-        if(!isCheia){
+        if(!isCheia && !posicoesLivres.isEmpty()){
             Posicao posicaoSorteada = posicoesLivres.get((int)(Math.random() * posicoesLivres.size()));
             vinhos[posicaoSorteada.getLinha()][posicaoSorteada.getColuna()] = vinho;
+            quantidadeGarrafas++;
+            valorTotal += vinho.getValor();
         }
     }
 
