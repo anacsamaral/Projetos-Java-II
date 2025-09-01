@@ -8,4 +8,16 @@ public class Musica {
         this.duracao = duracao;
         this.link = link;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getDuracao() {
+        return duracao;
+    }
+
+    public String getLink() {
+        return link;
+    }
 }
