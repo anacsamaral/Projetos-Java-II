@@ -18,7 +18,7 @@ public class Artista {
     }
 
     public void listarCDs() {
-        System.out.println("CDs do artista " + nome + ":");
+        System.out.println("\n>>> CDs do artista " + nome + ":");
         for(CD cd : cds)
             System.out.println(" - " + cd.getTitulo());
     }

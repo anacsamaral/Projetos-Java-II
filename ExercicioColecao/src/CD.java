@@ -8,8 +8,10 @@ public class CD {
     private List<Musica> musicas;
 
     public CD(String titulo, int ano, Artista artista) {
-        this.titulo = titulo;
-        this.ano = ano;
+        if(!(titulo.isEmpty()))
+            this.titulo = titulo;
+        if(ano > 0)
+            this.ano = ano;
         this.artista = artista;
         this.musicas = new ArrayList<>();
 
@@ -22,7 +24,7 @@ public class CD {
     }
 
     public void listarMusica() {
-        System.out.println("Músicas do CD \"" + titulo + "\" do artista " + artista.getNome() + ":");
+        System.out.println("\n>>> Músicas do CD \"" + titulo + "\" do artista " + artista.getNome() + ":");
         for(Musica m : musicas)
             System.out.println("  - " + m.exibirInfo());
     }
@@ -37,7 +39,9 @@ public class CD {
     }
 
     public String getTitulo() {
-        return titulo;
+        if(!(titulo.isEmpty()))
+            return titulo;
+        return null;
     }
 
     public Artista getArtista() {
