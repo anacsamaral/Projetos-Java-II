@@ -1,13 +1,23 @@
-public class Produto {
-    private String nome;
+class Produto {
+    private int id;
     private String descricao;
-    private double preco;
-    private int quantidade;
+    private Categoria categoria;
+    private double valor;
 
-    public Produto(String nome, String descricao, double preco, int quantidade) {
-        this.nome = nome;
+    public Produto(int id, String descricao, Categoria categoria, double valor) {
+        this.id = id;
         this.descricao = descricao;
-        setPreco = preco;
-        setQuantidade = quantidade;
+        this.categoria = categoria;
+        this.valor = valor;
+    }
+
+    public int getId() { return id; }
+    public String getDescricao() { return descricao; }
+    public Categoria getCategoria() { return categoria; }
+    public double getValor() { return valor; }
+
+    @Override
+    public String toString() {
+        return descricao + " - " + categoria + " (R$" + valor + ")";
     }
 }
