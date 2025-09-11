@@ -1,17 +1,18 @@
-public class Funcionario {
+public class Funcionario extends Trabalhador{
+    // se colocar 'final', a classe não pode ser herdada por outras classes, o mesmo funciona para metodos
+    // é o mesmo que Funcionario extends Object
     private int ctps;
-    private String nome;
-    private int horasTrab;
     private double valorHora;
     // se trocar private para protected, libera o acesso para subclasse, porém pode ocorrer violação apesar de válida
 
-//    public Funcionario(){ -> construtor vazio
-//        this(0,"",0,0);
-//    }
+    public Funcionario(){ // construtor vazio
+        super("",0);
+        ctps = 0;
+        valorHora = 0;
+    }
     public Funcionario(int ctps, String nome, int horasTrab, double valorHora) {
+        super(nome,horasTrab);
         this.ctps = ctps;
-        this.nome = nome;
-        this.horasTrab = horasTrab;
         this.valorHora = valorHora;
     }
 
@@ -28,22 +29,6 @@ public class Funcionario {
         this.ctps = ctps;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getHorasTrab() {
-        return horasTrab;
-    }
-
-    public void setHorasTrab(int horasTrab) {
-        this.horasTrab = horasTrab;
-    }
-
     public double getValorHora() {
         return valorHora;
     }
@@ -54,6 +39,6 @@ public class Funcionario {
 
     // métodos
     public double getSalario(){
-        return horasTrab * valorHora;
+        return getHoraTrab() * this.valorHora;
     }
 }

@@ -6,6 +6,11 @@ public class Gerente extends Funcionario {
         this.adicional = adicional;
     }
 
+    public Gerente() {
+        super();
+        adicional = 0;
+    }
+
     public double getAdicional(){
         return adicional;
     }
