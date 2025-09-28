@@ -4,6 +4,7 @@ public class Funcionario extends Trabalhador{
     private int ctps;
     private double valorHora;
     // se trocar private para protected, libera o acesso para subclasse, porém pode ocorrer violação apesar de válida
+    // recomenda-se usar os gets e sets
 
     public Funcionario(){ // construtor vazio
         super("",0);
