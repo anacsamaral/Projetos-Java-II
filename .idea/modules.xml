@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AplicativoEquipe/AplicativoEquipe.iml" filepath="$PROJECT_DIR$/AplicativoEquipe/AplicativoEquipe.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExercicioAdega/ExercicioAdega.iml" filepath="$PROJECT_DIR$/ExercicioAdega/ExercicioAdega.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ExercicioBiblioteca/ExercicioBiblioteca.iml" filepath="$PROJECT_DIR$/ExercicioBiblioteca/ExercicioBiblioteca.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExercicioColecao/ExercicioColecao.iml" filepath="$PROJECT_DIR$/ExercicioColecao/ExercicioColecao.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExercicioComanda/ExercicioComanda.iml" filepath="$PROJECT_DIR$/ExercicioComanda/ExercicioComanda.iml" />
       <module fileurl="file://$PROJECT_DIR$/ExercicioDicionario/ExercicioDicionario.iml" filepath="$PROJECT_DIR$/ExercicioDicionario/ExercicioDicionario.iml" />
