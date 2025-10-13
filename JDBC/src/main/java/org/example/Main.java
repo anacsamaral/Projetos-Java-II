@@ -22,8 +22,8 @@ public class Main {
                                      // se deu DELETE e retornar true, mas nem sempre deletou alguma coisa
                                     // alterar, deletar algo que não existe, gera erro
 
-            //if(statement.executeUpdate(sql) < 1) // retorna um inteiro, ou seja, se não achou algo para deletar, retorna zero
-            //    System.out.println("Ação não executada");
+            // if(statement.executeUpdate(sql) < 1) => retorna um inteiro, ou seja, se não achou algo para deletar, retorna zero
+            // System.out.println("Ação não executada");
 
             String sql = "SELECT * FROM categoria";
 
@@ -40,6 +40,5 @@ public class Main {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-
     }
 }
