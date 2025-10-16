@@ -1,5 +1,6 @@
 package org.example;
 
+//classe de entidade
 public class Categoria {
     private int id;
     private String nome;
