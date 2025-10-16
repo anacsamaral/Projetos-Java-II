@@ -1,18 +1,15 @@
 package org.example;
 
 public class SingletonDB {
-    private static Conexao conexao = null;
+    private static Conexao conexao=null;
     public static boolean conectar(){
-        return conexao.conectar("jdbc:postgresql://localhost:5433/","acervo_db","postgres", "postgres123");
+        conexao=new Conexao();
+        return conexao.conectar("jdbc:postgresql://localhost:5432/","acervo_db","postgres","postgres123");
     }
-
-    public static Conexao getConexao(){
+    public static Conexao getConexao() {
         return conexao;
     }
-
-    // inibe a instância
-    private SingletonDB(){
-
+    // inibe a instância de SingletonDB
+    private SingletonDB() {
     }
-
 }
