@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ProjetoManeDelivery" />
         <module name="JDBC" />
+        <module name="ManeDelivery (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="ManeDelivery" target="24" />
+      <module name="ManeDelivery (2)" target="24" />
       <module name="untitled" target="24" />
     </bytecodeTargetLevel>
   </component>
