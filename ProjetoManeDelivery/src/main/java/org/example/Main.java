@@ -1,0 +1,15 @@
+package org.example;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Main {
+    public static void main(String[] args) {
+        Connection connection;
+        try{
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:54")
+        } catch (Exception e){
+
+        }
+    }
+}

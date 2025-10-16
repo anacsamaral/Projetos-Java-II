@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Connection connection;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/acervo_db",
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5433/acervo_db",
                     "postgres", "postgres123");
             Statement statement=connection.createStatement();
             //String sql="INSERT INTO categoria (ca_nome) VALUES ('drama')";

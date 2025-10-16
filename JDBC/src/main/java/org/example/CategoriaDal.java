@@ -11,7 +11,7 @@ public class CategoriaDal implements IDAL<Categoria>{
         String sql="INSERT INTO categoria (ca_nome) VALUES ('#1')";
         sql=sql.replace("#1", categoria.getNome());
         Conexao conexao=new Conexao();
-        boolean ok=false;
+        boolean ok = false;
         return SingletonDB.getConexao().manipular(sql);
     }
 
