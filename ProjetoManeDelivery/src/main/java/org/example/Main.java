@@ -1,4 +1,4 @@
-package org.example.db;
+package org.example;
 
 import org.example.db.util.SingletonDB;
 

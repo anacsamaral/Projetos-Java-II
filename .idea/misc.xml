@@ -12,7 +12,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/ProjetoManeDelivery/pom.xml" />
+        <option value="$PROJECT_DIR$/ManeDelivery/pom.xml" />
         <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </set>
     </option>

@@ -1,4 +1,4 @@
-package org.example.db.dal;
+package org.example.db.dals;
 
 import org.example.db.entidades.Marca;
 import org.example.db.util.IDAL;
