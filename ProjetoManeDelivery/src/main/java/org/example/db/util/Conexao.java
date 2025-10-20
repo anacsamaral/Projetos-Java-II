@@ -10,6 +10,11 @@ public class Conexao
     {   erro="";
         connect=null;
     }
+
+    public Connection getConnect(){
+
+    }
+
     public boolean conectar(String local,String banco,String usuario,String senha)
     {   boolean conectado=false;
         try {

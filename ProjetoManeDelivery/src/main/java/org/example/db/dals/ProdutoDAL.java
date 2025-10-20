@@ -10,90 +10,78 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProdutoDAL implements IDAL<Produto> {
 
     @Override
     public boolean gravar(Produto entidade) {
-        String sql = "INSERT INTO produto (nome, preco, volume_ml, id_categoria, id_marca) VALUES ('#1', #2, #3, #4, #5)";
+        String sql = """
+                INSERT INTO produto(
+                	pro_nome, pro_preco, cat_id, pro_volume, mar_id)
+                	VALUES ('#1', #2, #3, #4, #5);
+                """;
         sql = sql.replace("#1", entidade.getNome());
-        sql = sql.replace("#2", entidade.getPreco().toString());
-        sql = sql.replace("#3", "" + entidade.getVolume());
-        sql = sql.replace("#4", "" + entidade.getCategoria().getId());
-        sql = sql.replace("#5", "" + entidade.getMarca().getId());
+        sql = sql.replace("#2", String.format(Locale.US,"%.2f", entidade.getPreco())); // o string format converte separando os centavos por virgula
+        sql = sql.replace("#3", "" + entidade.getCategoria().getId());
+        sql = sql.replace("#4", "" + entidade.getVolume());
+        sql = sql.replace("#5","" + entidade.getMarca().getId());
         return SingletonDB.getConexao().manipular(sql);
     }
 
     @Override
     public boolean alterar(Produto entidade) {
-        String sql = "UPDATE produto SET nome='#1', preco=#2, volume_ml=#3, id_categoria=#4, id_marca=#5 WHERE id=#6";
+        String sql = """
+                UPDATE produto SET pro_nome = '#1', pro_preco = #2, cat_id = #3, pro_volume = #4, mar_id = #5 WHERE pro_id = #6)
+                """;
         sql = sql.replace("#1", entidade.getNome());
-        sql = sql.replace("#2", entidade.getPreco().toString());
-        sql = sql.replace("#3", "" + entidade.getVolume());
-        sql = sql.replace("#4", "" + entidade.getCategoria().getId());
-        sql = sql.replace("#5", "" + entidade.getMarca().getId());
-        sql = sql.replace("#6", "" + entidade.getId());
+        sql = sql.replace("#2", String.format(Locale.US,"%.2f", entidade.getPreco())); // o string format converte separando os centavos por virgula
+        sql = sql.replace("#3", "" + entidade.getCategoria().getId());
+        sql = sql.replace("#4", "" + entidade.getVolume());
+        sql = sql.replace("#5","" + entidade.getMarca().getId());
         return SingletonDB.getConexao().manipular(sql);
     }
 
     @Override
     public boolean apagar(Produto entidade) {
-        return SingletonDB.getConexao().manipular("DELETE FROM produto WHERE id=" + entidade.getId());
-    }
-
-    private Produto criarProduto(ResultSet rs) throws SQLException {
-        Categoria categoria = new Categoria(rs.getInt("cat_id"), rs.getString("cat_nome"));
-        Marca marca = new Marca(rs.getInt("mar_id"), rs.getString("mar_nome"));
-
-        return new Produto(
-                rs.getInt("prod_id"),
-                rs.getString("prod_nome"),
-                rs.getBigDecimal("preco"),
-                rs.getInt("volume_ml"),
-                categoria,
-                marca
-        );
+        return SingletonDB.getConexao().manipular("DELETE FROM produto WHERE pro_id = " + entidade.getId());
     }
 
     @Override
     public Produto get(int id) {
         Produto produto = null;
-        String sql = "SELECT p.id as prod_id, p.nome as prod_nome, p.preco, p.volume_ml, " +
-                "c.id as cat_id, c.nome as cat_nome, m.id as mar_id, m.nome as mar_nome " +
-                "FROM produto p JOIN categoria c ON p.id_categoria = c.id " +
-                "JOIN marca m ON p.id_marca = m.id WHERE p.id=" + id;
+        String sql = "SELECT * FROM produto WHERE pro_id = " + id;
+        try{
+            ResultSet rs = SingletonDB.getConexao().consultar(sql);
+            if(rs.next())
+                produto = new Produto(rs.getInt("pro_id"), rs.getString("pro_nome"), rs.getDouble("pro_preco"), rs.getInt("pro_volume"),
+                          new CategoriaDAL().get(rs.getInt("cat_id")),
+                          new MarcaDAL().get(rs.getInt("mar_id")));
 
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
-        try {
-            if (rs != null && rs.next()) {
-                produto = criarProduto(rs);
-            }
         } catch (Exception e) {
-            System.err.println("Erro ao buscar produto por ID: " + e.getMessage());
+            throw new RuntimeException(e);
         }
         return produto;
     }
 
     @Override
     public List<Produto> get(String filtro) {
-        List<Produto> lista = new ArrayList<>();
-        String sql = "SELECT p.id as prod_id, p.nome as prod_nome, p.preco, p.volume_ml, " +
-                "c.id as cat_id, c.nome as cat_nome, m.id as mar_id, m.nome as mar_nome " +
-                "FROM produto p JOIN categoria c ON p.id_categoria = c.id " +
-                "JOIN marca m ON p.id_marca = m.id";
-        if (filtro != null && !filtro.isEmpty()) {
-            sql += " WHERE p.nome ILIKE '%" + filtro + "%'";
-        }
-        sql += " ORDER BY p.nome";
-
-        ResultSet rs = SingletonDB.getConexao().consultar(sql);
-        try {
-            while (rs != null && rs.next()) {
-                lista.add(criarProduto(rs));
+            List<Produto> produtoList = new ArrayList<>();
+            String sql = "SELECT * FROM produto";
+            if(!filtro.isEmpty())
+                sql += " WHERE " + filtro;
+            try{
+                ResultSet rs = SingletonDB.getConexao().consultar(sql);
+                while(rs.next()){
+                    Produto produto =
+                            new Produto(rs.getInt("pro_id"), rs.getString("pro_nome"), rs.getDouble("pro_preco"), rs.getInt("pro_volume"),
+                            new CategoriaDAL().get(rs.getInt("cat_id")),
+                            new MarcaDAL().get(rs.getInt("mar_id")));
+                    produtoList.add(produto);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar produtos: " + e.getMessage());
-        }
-        return lista;
+            return produtoList;
     }
 }
