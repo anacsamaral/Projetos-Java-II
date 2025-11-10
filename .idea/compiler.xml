@@ -7,13 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JDBC" />
+        <module name="ManeDeliveryProject (1)" />
         <module name="untitled" />
-        <module name="ManeDeliveryProject" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ManeDelivery" target="24" />
       <module name="ManeDelivery (2)" target="24" />
+      <module name="ManeDeliveryProject" target="24" />
       <module name="ProjetoManeDelivery" target="24" />
       <module name="untitled" target="24" />
     </bytecodeTargetLevel>
