@@ -43,7 +43,7 @@ public class Conexao
     {   boolean executou=false;
         try {
             Statement statement = connect.createStatement();
-            int result = statement.executeUpdate( sql );
+            int result = statement.executeUpdate(sql);
             statement.close();
             if(result>=1)
                 executou=true;
