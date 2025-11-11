@@ -30,7 +30,7 @@ public class MenuController {
            Scene scene = new Scene(fxmlLoader.load());
            stage.setTitle("Cadastro de Produtos");
            stage.setScene(scene);
-           stage.initModality(Modality.WINDOW_MODAL);
+           stage.initModality(Modality.APPLICATION_MODAL);
            stage.showAndWait();
        }catch (Exception e){}
     }
@@ -55,6 +55,15 @@ public class MenuController {
 
     @FXML
     void onNovoPedido(ActionEvent event) {
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("novo-pedido-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Novo Pedido");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
 
     }
 

@@ -42,9 +42,11 @@ public class ProdutosTableController implements Initializable {
     @FXML
     private TextField tfPesquisar;
 
+    static public Produto produtoSelecionado=null;
+
     @FXML
     void onFechar(ActionEvent event) {
-
+        tfPesquisar.getScene().getWindow().hide();
     }
 
     @FXML
@@ -57,12 +59,13 @@ public class ProdutosTableController implements Initializable {
             stage.setScene(scene);
             stage.initModality(Modality.WINDOW_MODAL);
             stage.showAndWait();
+            carregarTabela("");
         }catch (Exception e){}
     }
 
     @FXML
     void onPesquisar(KeyEvent event) {
-
+        carregarTabela("upper(pro_nome) LIKE '%"+tfPesquisar.getText().toUpperCase()+"%'");
     }
 
     @Override
@@ -78,5 +81,30 @@ public class ProdutosTableController implements Initializable {
         ProdutoDAL dal =new ProdutoDAL();
         List<Produto> produtoList=dal.get(filtro);
         tableView.setItems(FXCollections.observableArrayList(produtoList));
+    }
+
+    public void onAlterar(ActionEvent actionEvent) {
+        ProdutoDAL dal=new ProdutoDAL();
+        if(tableView.getSelectionModel().getSelectedItem()!=null){
+            produtoSelecionado=tableView.getSelectionModel().getSelectedItem();
+            try{
+                Stage stage=new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("produto-form-view.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Alteração de Produtos");
+                stage.setScene(scene);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.showAndWait();
+                carregarTabela("");
+            }catch (Exception e){}
+        }
+    }
+
+    public void onApagar(ActionEvent actionEvent) {
+        ProdutoDAL dal=new ProdutoDAL();
+        if(tableView.getSelectionModel().getSelectedItem()!=null){
+           dal.apagar(tableView.getSelectionModel().getSelectedItem());
+           carregarTabela("");
+        }
     }
 }
