@@ -3,6 +3,9 @@ module unoeste.fipp.manedeliveryfx {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires java.logging;
+    requires org.json;
+
 
     opens unoeste.fipp.manedeliveryfx to javafx.fxml;
     opens unoeste.fipp.manedeliveryfx.db.entidades to javafx.fxml;

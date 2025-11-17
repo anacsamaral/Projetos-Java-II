@@ -12,14 +12,14 @@ import java.util.List;
 public class TipoPagamentoDAL implements IDAL<TipoPagamento> {
     @Override
     public boolean gravar(TipoPagamento entidade) {
-        String sql="INSERT INTO TipoPagamento (tpg_nome) VALUES ('#1')";
+        String sql="INSERT INTO tipo_pagamento (tpg_nome) VALUES ('#1')";
         sql=sql.replace("#1", entidade.getNome());
         return SingletonDB.getConexao().manipular(sql);
     }
 
     @Override
     public boolean alterar(TipoPagamento entidade) {
-        String sql="UPDATE TipoPagamento SET tpg_nome='#1' WHERE tpg_id=#2";
+        String sql="UPDATE tipo_pagamento SET tpg_nome='#1' WHERE tpg_id=#2";
         sql=sql.replace("#1", entidade.getNome());
         sql=sql.replace("#2", ""+entidade.getId());
         return SingletonDB.getConexao().manipular(sql);
@@ -27,7 +27,7 @@ public class TipoPagamentoDAL implements IDAL<TipoPagamento> {
 
     @Override
     public boolean apagar(TipoPagamento entidade) {
-        return SingletonDB.getConexao().manipular("DELETE FROM TipoPagamento WHERE tpg_id="+entidade.getId());
+        return SingletonDB.getConexao().manipular("DELETE FROM tipo_pagamento WHERE tpg_id="+entidade.getId());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class TipoPagamentoDAL implements IDAL<TipoPagamento> {
     @Override
     public List<TipoPagamento> get(String filtro) {
         List <TipoPagamento> TipoPagamentoList=new ArrayList<>();
-        String sql="SELECT * FROM TipoPagamento";
+        String sql="SELECT * FROM tipo_pagamento";
         if(!filtro.isEmpty())
             sql+=" WHERE "+filtro;
         ResultSet rs=SingletonDB.getConexao().consultar(sql);

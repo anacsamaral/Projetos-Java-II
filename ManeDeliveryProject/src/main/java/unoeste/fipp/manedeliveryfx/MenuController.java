@@ -4,11 +4,18 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import unoeste.fipp.manedeliveryfx.db.dals.TipoPagamentoDAL;
+import unoeste.fipp.manedeliveryfx.db.entidades.TipoPagamento;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class MenuController {
 
@@ -74,5 +81,6 @@ public class MenuController {
         alert.setHeaderText("Mane DeliveryFX");
         alert.showAndWait();
     }
+
 
 }
