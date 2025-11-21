@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="520.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unoeste.fipp.manedeliveryfx.MenuController">
+<BorderPane prefHeight="520.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unoeste.fipp.manedeliveryfx.MenuController">
    <top>
       <VBox prefHeight="83.0" prefWidth="779.0" style="-fx-background-color: #018786;" BorderPane.alignment="CENTER">
          <children>
@@ -34,6 +33,7 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#onNovoPedido" text="NOVO..." />
                         <MenuItem mnemonicParsing="false" onAction="#onGerenciarPedido" text="GERENCIAR..." />
+                        <MenuItem mnemonicParsing="false" onAction="#onRelatorioPedido" text="RELATÓRIO" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="AJUDA">

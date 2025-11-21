@@ -10,8 +10,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import unoeste.fipp.manedeliveryfx.db.dals.PedidoDAL;
 import unoeste.fipp.manedeliveryfx.db.dals.TipoPagamentoDAL;
+import unoeste.fipp.manedeliveryfx.db.entidades.Pedido;
 import unoeste.fipp.manedeliveryfx.db.entidades.TipoPagamento;
+import unoeste.fipp.manedeliveryfx.reports.PedidoReports;
 
 import java.net.URL;
 import java.util.List;
@@ -82,5 +85,12 @@ public class MenuController {
         alert.showAndWait();
     }
 
+    // perguntar a data inicial e a data dos pedidos
 
+    public void onRelatórioPedido(ActionEvent actionEvent){
+        String filtro = "ped_data BETWEEN '2025-11-01 AND '2025-11-17' ORDER BY ped_data";
+        PedidoDAL dal = new PedidoDAL();
+        List<Pedido> pedidoList = dal.get(filtro);
+        PedidoReports.relPedidos(null);
+    }
 }

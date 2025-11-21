@@ -4,6 +4,9 @@ module unoeste.fipp.manedeliveryfx {
     requires java.sql;
     requires java.desktop;
     requires java.logging;
+    requires kernel;
+    requires layout;
+    requires io;
     requires org.json;
 
 
