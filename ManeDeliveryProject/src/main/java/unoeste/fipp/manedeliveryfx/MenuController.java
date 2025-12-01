@@ -24,12 +24,28 @@ public class MenuController {
 
     @FXML
     void onCadCategorias(ActionEvent event) {
-
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("categorias-table-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Cadastro de Categorias");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
     }
 
     @FXML
     void onCadMarcas(ActionEvent event) {
-
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("marcas-table-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Cadastro de Marcas");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
     }
 
     @FXML
@@ -47,7 +63,15 @@ public class MenuController {
 
     @FXML
     void onCadTiposPagamento(ActionEvent event) {
-
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("tipopag-table-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Cadastro de Tipos de Pagamento");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
     }
 
     @FXML
@@ -60,6 +84,15 @@ public class MenuController {
 
     @FXML
     void onGerenciarPedido(ActionEvent event) {
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("gerenciar-pedidos-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Gerenciar Pedidos");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
 
     }
 
@@ -80,17 +113,21 @@ public class MenuController {
     @FXML
     void onSobre(ActionEvent event) {
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Desenvolvido por Silvio\nOutros");
+        alert.setContentText("Desenvolvido por Ana, Caroliny e Luane\n");
         alert.setHeaderText("Mane DeliveryFX");
         alert.showAndWait();
     }
 
-    // perguntar a data inicial e a data dos pedidos
 
-    public void onRelatórioPedido(ActionEvent actionEvent){
-        String filtro = "ped_data BETWEEN '2025-11-01 AND '2025-11-17' ORDER BY ped_data";
-        PedidoDAL dal = new PedidoDAL();
-        List<Pedido> pedidoList = dal.get(filtro);
-        PedidoReports.relPedidos(null);
+    public void onRelatórioPedido(ActionEvent actionEvent) {
+        try{
+            Stage stage=new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(ManeDeliveryFX.class.getResource("relatorio-form-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Novo Relatorio");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        }catch (Exception e){}
     }
 }

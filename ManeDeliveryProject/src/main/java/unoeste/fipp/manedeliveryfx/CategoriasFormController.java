@@ -21,13 +21,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProdutoFormController implements Initializable {
-
-    @FXML
-    private ComboBox<Categoria> cbCategoria;
-
-    @FXML
-    private ComboBox<Marca> cbMarca;
+public class CategoriasFormController implements Initializable {
 
     @FXML
     private TextField tfId;
@@ -35,61 +29,48 @@ public class ProdutoFormController implements Initializable {
     @FXML
     private TextField tfNome;
 
-    @FXML
-    private TextField tfPreco;
-
-    @FXML
-    private TextField tfVolume;
 
     @FXML
     void onCancelar(ActionEvent event) {
-        tfVolume.getScene().getWindow().hide();
+        tfNome.getScene().getWindow().hide();
 
     }
 
     @FXML
     void onConfirmar(ActionEvent event) {
-        ProdutoDAL dal=new ProdutoDAL();
-        Produto produto=new Produto();
+        CategoriaDAL dal=new CategoriaDAL();
+        Categoria categoria = new Categoria();
         if (tfNome.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Campo obrigatório");
-            alert.setContentText("O nome do produto não pode ficar vazio!");
+            alert.setContentText("O nome da categoria não pode ficar vazio!");
             alert.showAndWait();
             tfNome.requestFocus();
             return;
         }
-        produto.setNome(tfNome.getText());
-        produto.setPreco(Double.parseDouble(tfPreco.getText().replace(",",".")));
-        produto.setVolume(Integer.parseInt(tfVolume.getText()));
-        produto.setMarca(cbMarca.getSelectionModel().getSelectedItem());
-        produto.setCategoria(cbCategoria.getValue());
+        categoria.setNome(tfNome.getText());
         if(tfId.getText().isEmpty()) {  //id vazio significa que é um novo produto
-            if (!dal.gravar(produto)) {
+            if (!dal.gravar(categoria)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Erro ao cadastrar\n" + SingletonDB.getConexao().getMensagemErro());
             }
             else
-                tfVolume.getScene().getWindow().hide();
+                tfNome.getScene().getWindow().hide();
         }
         else {
-            produto.setId(Integer.parseInt(tfId.getText()));
-            if(!dal.alterar(produto)) {
+            categoria.setId(Integer.parseInt(tfId.getText()));
+            if(!dal.alterar(categoria)) {
                 Alert alert=new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Erro ao alterar\n"+ SingletonDB.getConexao().getMensagemErro());
             }
             else
-                tfVolume.getScene().getWindow().hide();
-
+                tfNome.getScene().getWindow().hide();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(()->{tfNome.requestFocus();});
-        MaskFieldUtil.monetaryField(tfPreco);
-        MaskFieldUtil.numericField(tfVolume);
-        carregarComboBox();
         //caso seja uma alteração, carregar o produto que será alterado
         if(ProdutosTableController.produtoSelecionado!=null){
             Produto aux=ProdutosTableController.produtoSelecionado;
@@ -97,21 +78,6 @@ public class ProdutoFormController implements Initializable {
             tfId.setText(""+aux.getId());
             tfId.setEditable(false);
             tfNome.setText(aux.getNome());
-            tfPreco.setText(String.format("%.2f",aux.getPreco()));
-            tfVolume.setText(""+aux.getVolume());
-            cbMarca.getSelectionModel().select(aux.getMarca());
-            cbCategoria.getSelectionModel().select(aux.getCategoria());
         }
-    }
-
-    private void carregarComboBox() {
-        MarcaDAL marcaDAL = new MarcaDAL();
-        CategoriaDAL categoriaDAL = new CategoriaDAL();
-        List<Marca> marcaList = marcaDAL.get("");
-        List<Categoria> categoriaList = categoriaDAL.get("");
-
-        cbMarca.setItems(FXCollections.observableArrayList(marcaList));
-        cbCategoria.setItems(FXCollections.observableArrayList(categoriaList));
-
     }
 }

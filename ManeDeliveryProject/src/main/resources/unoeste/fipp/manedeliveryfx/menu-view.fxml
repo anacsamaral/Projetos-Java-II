@@ -1,72 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="520.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unoeste.fipp.manedeliveryfx.MenuController">
-   <top>
-      <VBox prefHeight="83.0" prefWidth="779.0" style="-fx-background-color: #018786;" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="CADASTROS">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#onCadProdutos" text="PRODUTOS..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onCadMarcas" text="MARCAS..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onCadCategorias" text="CATEGORIAS..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onCadTiposPagamento" text="TIPOS DE PAGAMENTO..." />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#onFechar" text="FECHAR" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="PEDIDOS">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#onNovoPedido" text="NOVO..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onGerenciarPedido" text="GERENCIAR..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onRelatorioPedido" text="RELATÓRIO" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="AJUDA">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#onSobre" text="SOBRE..." />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <ToolBar prefHeight="64.0" prefWidth="779.0" style="-fx-background-color: transparent;">
-              <items>
-                <Button mnemonicParsing="false" onAction="#onNovoPedido" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: white;" text="+">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-              </items>
-            </ToolBar>
-         </children>
-      </VBox>
-   </top>
-   <bottom>
-      <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="779.0" style="-fx-background-color: #018786;" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="FIPP Tools" textFill="WHITE">
-               <font>
-                  <Font name="System Italic" size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets right="18.0" />
-               </HBox.margin>
-            </Label>
-         </children>
-      </HBox>
-   </bottom>
+<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unoeste.fipp.manedeliveryfx.MenuController">
+    <top>
+        <VBox spacing="5.0" style="-fx-background-color: #018786;" BorderPane.alignment="CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="900.0" spacing="10" style="-fx-padding: 15 20 15 20;">
+                    <children>
+                        <Label text="Bem-vindo ao Mané Delivery" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="900.0" spacing="10" style="-fx-padding: 25;">
+                    <children>
+                        <Button onAction="#onNovoPedido" prefWidth="120" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Novo Pedido" />
+                        <Button onAction="#onGerenciarPedido" prefWidth="150" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Gerenciar Pedidos" />
+                        <Button onAction="#onRelatórioPedido" prefWidth="150" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Relatorio" />
+                        <Button onAction="#onCadProdutos" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Produtos" />
+                        <Button onAction="#onCadMarcas" prefWidth="100" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Marcas" />
+                        <Button onAction="#onCadCategorias" prefWidth="120" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Categorias" />
+                        <Button onAction="#onCadTiposPagamento" prefWidth="150" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Tipos de Pagamento" />
+                        <Button onAction="#onSobre" prefHeight="26.0" prefWidth="73.0" style="-fx-background-color: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #018786;" text="Sobre" />
+                        <Button onAction="#onFechar" prefHeight="28.0" prefWidth="100.0" style="-fx-background-color: #FF5252; -fx-font-weight: bold; -fx-background-radius: 10; -fx-text-fill: white;" text="Fechar" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: ffff;">
+            <children>
+                <ImageView fitHeight="390.0" fitWidth="785.0" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logomane.jpg" />
+                    </image></ImageView>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" prefHeight="57.0" prefWidth="900.0" spacing="10" style="-fx-background-color: #018786; -fx-padding: 10 20 10 20;">
+            <children>
+                <Label text="Usuário: Admin" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </bottom>
+
 </BorderPane>

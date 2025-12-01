@@ -77,11 +77,47 @@ public class NovoPedidoController implements Initializable {
 
     @FXML
     void onAdicItem(ActionEvent event) {
-        double precoItem=produto.getPreco()*spQuant.getValue();
-        Pedido.Item item=new Pedido.Item(produto,spQuant.getValue(),precoItem);
-        tableView.getItems().add(item);
-        totalPedido+=precoItem;
-        lbTotal.setText(String.format("%.2f",totalPedido));
+        if (produto == null) {
+            new Alert(Alert.AlertType.WARNING, "Selecione um produto primeiro.").showAndWait();
+            return;
+        }
+        int quant = spQuant.getValue();
+        for (Pedido.Item it : tableView.getItems()) {
+            if (it.produto().getId() == produto.getId())
+            {
+                // Criar novo item somando quantidade
+                int novaQuant = it.quantidade() + quant;
+                double novoValor = novaQuant * produto.getPreco();
+
+                Pedido.Item novoItem = new Pedido.Item(produto, novaQuant, novoValor);
+
+                // Remover item antigo e adicionar novo
+                tableView.getItems().remove(it);
+                tableView.getItems().add(novoItem);
+                recalcularTotal();
+                produto = null;
+                btProduto.setText("Selecione o produto");
+                spQuant.getValueFactory().setValue(1);
+
+                return;
+            }
+        }
+        double precoItem = produto.getPreco() * quant;
+        Pedido.Item novo = new Pedido.Item(produto, quant, precoItem);
+        tableView.getItems().add(novo);
+
+        recalcularTotal();
+        produto = null;
+        btProduto.setText("Selecione o produto");
+        spQuant.getValueFactory().setValue(1);
+    }
+
+    private void recalcularTotal() {
+        totalPedido = 0;
+        for (Pedido.Item item : tableView.getItems()) {
+            totalPedido += item.valor();
+        }
+        lbTotal.setText(String.format("%.2f", totalPedido));
     }
 
     @FXML
@@ -104,25 +140,65 @@ public class NovoPedidoController implements Initializable {
 
     @FXML
     void onConfirmar(ActionEvent event) {
-        PedidoDAL dal=new PedidoDAL();
-        Pedido pedido=new Pedido();
+        if (tfCliente.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Informe o nome do cliente.").showAndWait();
+            return;
+        }
+        if (tfTelefone.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Informe o telefone.").showAndWait();
+            return;
+        }
+        if (tfCep.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Informe o CEP.").showAndWait();
+            return;
+        }
+        if (tfEndereco.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "CEP inválido ou endereço não encontrado.").showAndWait();
+            return;
+        }
+        if (tfNumero.getText().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Informe o número da residência.").showAndWait();
+            return;
+        }
+        if (cbTipoPagamento.getValue() == null) {
+            new Alert(Alert.AlertType.WARNING, "Selecione um tipo de pagamento.").showAndWait();
+            return;
+        }
+        if (tableView.getItems().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Adicione pelo menos um item ao pedido.").showAndWait();
+            return;
+        }
+
+        Pedido pedido = new Pedido();
         pedido.setData(LocalDate.now());
+        pedido.setNomeCliente(tfCliente.getText());
         pedido.setLocal(tfEndereco.getText());
         pedido.setNumero(tfNumero.getText());
         pedido.setFoneCliente(tfTelefone.getText());
         pedido.setTipoPagamento(cbTipoPagamento.getValue());
-        for(Pedido.Item item : tableView.getItems()) {
+        pedido.setEntregue("N");
+        pedido.setTotal(totalPedido);
+
+        for (Pedido.Item item : tableView.getItems()) {
             pedido.addItem(item.produto(), item.quantidade());
         }
+
+        PedidoDAL dal = new PedidoDAL();
         dal.gravar(pedido);
+
+        new Alert(Alert.AlertType.INFORMATION,
+                "Pedido registrado com sucesso!").showAndWait();
+
         btProduto.getScene().getWindow().hide();
     }
 
+
     @FXML
     void onDelItem(ActionEvent event) {
-        Pedido.Item item=tableView.getSelectionModel().getSelectedItem();
-        if(item!=null){
+        Pedido.Item item = tableView.getSelectionModel().getSelectedItem();
+        if (item != null) {
             tableView.getItems().remove(item);
+            recalcularTotal();
         }
     }
 

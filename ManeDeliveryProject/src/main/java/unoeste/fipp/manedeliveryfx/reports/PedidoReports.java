@@ -7,6 +7,7 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
@@ -19,55 +20,52 @@ import java.util.List;
 
 public class PedidoReports {
     public static void relPedidos(List<Pedido> pedidoList){
-        String dest = "D:/mypdf.pdf";
+        String dest = "pedidos.pdf";
         PdfWriter writer = null;
         try {
             writer = new PdfWriter(dest);
 
-
-            // Criando o documento  Pdf
             PdfDocument pdf = new PdfDocument(writer);
-
-            // Criando o Document
             Document doc = new Document(pdf);
 
-            //Definindo uma fonte grande
             PdfFont fonteTitulo = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
-            //Definindo um texto
-            Text titulo = new Text("Nome da Empresa");
+            Text titulo = new Text("Relatório de Pedidos");
             titulo.setFont(fonteTitulo);
-            titulo.setFontSize(48);
-            //Definindo um parágrafo
+            titulo.setFontSize(32);
+
             Paragraph paragraph = new Paragraph(titulo);
-            //Adicionando o parágrafo
             doc.add(paragraph);
 
-            // Criando a tabela com 3 colunas
-            float[] pointColumnWidths = {150F, 150F, 150F};
+            float[] pointColumnWidths = {40F, 140F, 80F, 60F, 60F, 100F, 80F};
             Table table = new Table(pointColumnWidths);
 
-            // Adicionando celulas na tabela
-            table.addCell(new Cell().add("Nome").setBackgroundColor(Color.LIGHT_GRAY));
-            table.addCell(new Cell().add("Idade").setBackgroundColor(Color.LIGHT_GRAY));
-            table.addCell(new Cell().add("Profissão").setBackgroundColor(Color.LIGHT_GRAY));
-            table.addCell(new Cell().add("Jeniffer da Silva"));
-            table.addCell(new Cell().add("28"));
-            table.addCell(new Cell().add("Programadora"));
-            table.addCell(new Cell().add("Samanta Barros"));
-            table.addCell(new Cell().add("21"));
-            table.addCell(new Cell().add("Médica"));
+            // Cabeçalhos
+            table.addCell(new Cell().add("ID").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Cliente").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Data").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Entregue").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Total").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Pagamento").setBackgroundColor(Color.LIGHT_GRAY));
+            table.addCell(new Cell().add("Endereço").setBackgroundColor(Color.LIGHT_GRAY));
 
-            // Adicionando a tabela no documento
+            // Linhas da tabela
+            for (Pedido p : pedidoList) {
+                table.addCell(new Cell().add(String.valueOf(p.getId())));
+                table.addCell(new Cell().add(p.getNomeCliente() + "\n" + p.getFoneCliente()));
+                table.addCell(new Cell().add(p.getData().toString()));
+                table.addCell(new Cell().add(p.getEntregue().equalsIgnoreCase("S") ? "Sim" : "Não"));
+                table.addCell(new Cell().add(String.format("R$ %.2f", p.getTotal())));
+                table.addCell(new Cell().add(p.getTipoPagamento() != null ? p.getTipoPagamento().getNome() : "-"));
+                table.addCell(new Cell().add(p.getLocal() + ", nº " + p.getNumero()));
+            }
             doc.add(table);
-
-            // Fechando o documento
             doc.close();
-            System.out.println("documento criado..");
 
-            //abrindo e mostrando o PDF
             Desktop.getDesktop().open(new File(dest));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 }
+
+

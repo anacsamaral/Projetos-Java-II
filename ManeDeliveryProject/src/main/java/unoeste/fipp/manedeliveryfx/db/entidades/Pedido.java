@@ -40,10 +40,12 @@ public class Pedido {
     }
 
     public boolean addItem(Produto produto, int quantidade){
-        Item item=new Item(produto,quantidade,quantidade * produto.getPreco());
+        Item item=new Item(produto, quantidade, quantidade * produto.getPreco());
+        itens.add(item);
         totalizarItens();
-        return itens.add(item);
+        return true;
     }
+
 
     private void totalizarItens(){
         double total=0;

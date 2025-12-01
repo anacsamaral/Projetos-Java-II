@@ -156,4 +156,22 @@ public class PedidoDAL implements IDAL<Pedido> {
         }
         return pedidoList;
     }
+
+    public List<Pedido> getNaoEntregues() {
+        return get("ped_entregue = 'N'");
+    }
+
+    public boolean marcarComoEntregue(int id) {
+        String sql = "UPDATE pedido SET ped_entregue = 'S' WHERE ped_id = " + id;
+        return SingletonDB.getConexao().manipular(sql);
+    }
+
+    public boolean apagar(int id) {
+        SingletonDB.getConexao().manipular("DELETE FROM item WHERE ped_id=" + id);
+        return SingletonDB.getConexao().manipular("DELETE FROM pedido WHERE ped_id=" + id);
+    }
+
+
 }
+
+
